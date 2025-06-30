@@ -15,6 +15,7 @@ object ProductRepository {
             Product("Risotto", 7000.0, "https://picsum.photos/80?random=8", "Comida"),
             Product("Alfajor", 7000.0, "https://picsum.photos/80?random=9", "Postre"),
             Product("Porción Asado", 12000.0, "https://picsum.photos/80?random=10", "Comida"),
+            Product("Té de Tilo", 12000.0, "https://picsum.photos/80?random=11", "Bebida"),
             Product("Té de Tilo", 12000.0, "https://picsum.photos/80?random=11", "Bebida")
             )
     }
