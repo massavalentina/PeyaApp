@@ -4,7 +4,8 @@ Dado que enfrenté problemas de incompatibilidad de dependencias relacionadas co
 
 - *Login*: Autenticación básica de usuario.  
 - *Registro*: Registro de nuevos usuarios.  
-- *Listado de Productos*: Visualización dinámica de productos disponibles.  
+- *Listado de Productos*: Visualización dinámica de productos disponibles.
+- *Filtros para vista de Productos*: Visualización dinámica de productos filtrados por categoria (Bebida, Comida, Postre).  
 - *Carrito de Compras (sin persistencia con Room)*: Funcionalidad completa, aunque sin almacenamiento persistente.
 
 ---
@@ -24,6 +25,6 @@ Dado que enfrenté problemas de incompatibilidad de dependencias relacionadas co
 
 ## 📝 Notas Finales
 - La aplicación se encuentra en *desarrollo activo*. Debido a mi ausencia en el periodo disponible para la entrega final de este trabajo integrador, *todo feedback que me ayude a mejorar mi proyecto más allá de este curso será muy bien recibido*.
-- Agradezco el tiempo que puedas dedicar para probar mi proyecto o brindarme sugerencias que me ayuden a continuar desarrollando esta app. Es un proyecto muy interesante para terminar su construcción, y cualquier orientación me permitirá convertirlo en un producto funcional y escalable.
+- Agradezco el tiempo que se pueda brindar para sugerencias que me ayuden a continuar desarrollando esta app. Es un proyecto muy interesante para terminar su construcción.
 
 ---
