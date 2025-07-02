@@ -25,6 +25,5 @@ Dado que enfrenté problemas de incompatibilidad de dependencias relacionadas co
 
 ## 📝 Notas Finales
 - La aplicación se encuentra en *desarrollo activo*. Debido a mi ausencia en el periodo disponible para la entrega final de este trabajo integrador, *todo feedback que me ayude a mejorar mi proyecto más allá de este curso será muy bien recibido*.
-- Agradezco el tiempo que se pueda brindar para sugerencias que me ayuden a continuar desarrollando esta app. Es un proyecto muy interesante para terminar su construcción.
 
 ---
