@@ -11,12 +11,7 @@ object ProductRepository {
             Product("Agua saborizada", 1600.0, "https://picsum.photos/80?random=4", "Bebida"),
             Product("Helado", 1800.0, "https://picsum.photos/80?random=5", "Postre"),
             Product("Cheese Cake", 4000.0, "https://picsum.photos/80?random=6", "Postre"),
-            Product("Fernet", 12000.0, "https://picsum.photos/80?random=7", "Bebida"),
-            Product("Risotto", 7000.0, "https://picsum.photos/80?random=8", "Comida"),
-            Product("Alfajor", 7000.0, "https://picsum.photos/80?random=9", "Postre"),
-            Product("Porción Asado", 12000.0, "https://picsum.photos/80?random=10", "Comida"),
-            Product("Té de Tilo", 12000.0, "https://picsum.photos/80?random=11", "Bebida"),
-            Product("Té de Tilo", 12000.0, "https://picsum.photos/80?random=11", "Bebida")
+            Product("Fernet", 12000.0, "https://picsum.photos/80?random=7", "Bebida")
             )
     }
 }

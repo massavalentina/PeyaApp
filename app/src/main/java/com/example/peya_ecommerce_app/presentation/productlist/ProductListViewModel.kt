@@ -30,7 +30,7 @@ class ProductListViewModel : ViewModel() {
         products
             .filter { it.nombre.contains(query, ignoreCase = true) }
             .filter {
-                category == "Todas" || it.categoria.equals(category, ignoreCase = true)
+                category == "Todos" || it.categoria.equals(category, ignoreCase = true)
             }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 

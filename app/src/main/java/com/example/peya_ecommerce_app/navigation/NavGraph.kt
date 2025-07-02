@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.peya_ecommerce_app.presentation.CartScreen
+import com.example.peya_ecommerce_app.presentation.cart.CartScreen
 import com.example.peya_ecommerce_app.presentation.login.LoginScreen
 import com.example.peya_ecommerce_app.presentation.productlist.ProductListScreen
 import com.example.peya_ecommerce_app.presentation.register.RegisterScreen

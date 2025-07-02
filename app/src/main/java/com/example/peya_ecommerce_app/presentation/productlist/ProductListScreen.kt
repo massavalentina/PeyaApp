@@ -12,20 +12,24 @@ import com.example.peya_ecommerce_app.presentation.components.ProductCard
 import com.example.peya_ecommerce_app.presentation.components.SearchFilterBar
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.*
+import com.example.peya_ecommerce_app.presentation.cart.CartViewModel
 
 
 @Composable
 fun ProductListScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: ProductListViewModel = viewModel()
+    viewModel: ProductListViewModel = viewModel(),
+    cartViewModel: CartViewModel = viewModel()
 ) {
     val productList by viewModel.filteredProducts.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
 
     val category by viewModel.selectedCategory.collectAsState()
-    val categories = listOf("Todos", "Comida", "Bebidaa", "Postre")
+    val categories = listOf("Todos", "Comida", "Bebida", "Postre")
 
+    val products by viewModel.filteredProducts.collectAsState()
+    val cartItems by cartViewModel.cartItems.collectAsState()
 
     Scaffold(
         topBar = {
@@ -51,9 +55,15 @@ fun ProductListScreen(
                 .padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(productList) { product ->
-                ProductCard(product)
+            items(products) { product ->
+                val quantityInCart = cartItems.find { it.product == product }?.quantity ?: 0
+                ProductCard(
+                    product = product,
+                    quantityInCart = quantityInCart,
+                    onAddToCart = { cartViewModel.addToCart(it) }
+                )
             }
+
         }
     }
 }
