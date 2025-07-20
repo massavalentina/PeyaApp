@@ -1,17 +1,18 @@
 package com.example.peya_ecommerce_app.presentation.productlist
 
 import androidx.lifecycle.ViewModel
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.viewModelScope
-import com.example.peya_ecommerce_app.data.ProductRepository
+import com.example.peya_ecommerce_app.data.repository.ProductRepository
 import com.example.peya_ecommerce_app.model.Product
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class ProductListViewModel : ViewModel() {
+@HiltViewModel
+class ProductListViewModel @Inject constructor(
+    private val productRepository: ProductRepository
+) : ViewModel() {
 
     private val _allProducts = MutableStateFlow<List<Product>>(emptyList())
     val allProducts: StateFlow<List<Product>> = _allProducts
@@ -30,24 +31,38 @@ class ProductListViewModel : ViewModel() {
         products
             .filter { it.nombre.contains(query, ignoreCase = true) }
             .filter {
-                category == "Todos" || it.categoria.equals(category, ignoreCase = true)
+                when (category) {
+                    "Todos" -> true
+                    "Con Bebida" -> it.hasDrink
+                    "Sin Bebida" -> !it.hasDrink
+                    else -> true
+                }
             }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
-
 
     init {
         loadProducts()
     }
 
-    fun onSearchQueryChanged(query: String) {
-        _searchQuery.value = query
+    fun loadProducts() {
+        viewModelScope.launch {
+            try {
+                val products = productRepository.getProducts()
+                _allProducts.value = products
+            } catch (e: Exception) {
+                if (e is java.net.SocketTimeoutException) {
+                    println("Error de Timeout: ${e.message}")
+                } else {
+                    println("Error: ${e.message}")
+                }
+                _allProducts.value = emptyList()
+            }
+        }
     }
 
-    private fun loadProducts() {
-        viewModelScope.launch {
-            delay(500)
-            _allProducts.value = ProductRepository.getProducts()
-        }
+
+        fun onSearchQueryChanged(query: String) {
+        _searchQuery.value = query
     }
 
     fun onCategorySelected(category: String) {

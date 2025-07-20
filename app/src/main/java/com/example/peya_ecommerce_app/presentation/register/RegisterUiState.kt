@@ -10,5 +10,7 @@ data class RegisterUiState(
     val passwordError: String? = null,
     val confirmPasswordError: String? = null,
     val isRegisterEnabled: Boolean = false,
-    val isRegistered: Boolean = false
+    val isRegistered: Boolean = false,
+    val isLoading: Boolean = false,
+    val globalError: String? = null // Error general para mostrar un Snackbar
 )

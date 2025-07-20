@@ -1,50 +1,104 @@
 package com.example.peya_ecommerce_app.presentation.login
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.example.peya_ecommerce_app.data.local.UserPreferences
+import com.example.peya_ecommerce_app.data.repository.UserRepository
+import com.example.peya_ecommerce_app.navigation.Screen
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val userRepository: UserRepository,
+    private val userPreferences: UserPreferences
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState
 
-    private val validEmailRegex = Regex("^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})")
-
-    fun onEmailChanged(newEmail: String) {
-        _uiState.update { it.copy(email = newEmail) }
-        validateForm()
+    fun onEmailChanged(value: String) {
+        _uiState.update { it.copy(email = value, emailError = null, globalError = null) }
     }
 
-    fun onPasswordChanged(newPassword: String) {
-        _uiState.update { it.copy(password = newPassword) }
-        validateForm()
+    fun onPasswordChanged(value: String) {
+        _uiState.update { it.copy(password = value, passwordError = null, globalError = null) }
     }
 
-    private fun validateForm() {
-        val emailValid = validEmailRegex.matches(_uiState.value.email)
-        val passwordValid = _uiState.value.password.length >= 8
+    fun onLoginClicked(navController: NavController) {
+        val email = uiState.value.email
+        val password = uiState.value.password
 
-        _uiState.update {
-            it.copy(
-                emailError = if (!emailValid && it.email.isNotBlank()) "Email inválido" else null,
-                passwordError = if (!passwordValid && it.password.isNotBlank()) "Mínimo 8 caracteres" else null,
-                isLoginEnabled = emailValid && passwordValid
-            )
+        if (!isEmailValid(email)) {
+            _uiState.update { it.copy(emailError = "Email inválido.") }
+            return
+        }
+
+        if (password.isEmpty() || password.length < 8) {
+            _uiState.update { it.copy(passwordError = "Contraseña inválida.") }
+            return
+        }
+
+        _uiState.update { it.copy(isLoading = true) }
+
+        viewModelScope.launch {
+            try {
+                val result = userRepository.authenticateUser(email, password)
+
+                result.onSuccess { authResponse ->
+                    viewModelScope.launch {
+                        userPreferences.saveUser(
+                            email = authResponse.email,
+                            userId = authResponse.userId
+                        )
+                        Log.d("LoginFlow", "Usuario guardado en DataStore:")
+                        Log.d("LoginFlow", "Email: ${authResponse.email}, ID: ${authResponse.userId}")
+                    }
+
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            isLoggedIn = true,
+                            globalError = null
+                        )
+                    }
+                    Log.d("LoginFlow", "Estado isLoggedIn cambiado a true")
+                    navController.navigate(Screen.ProductList.route) {
+                        popUpTo(Screen.Login.route) { inclusive = true }
+                    }
+
+                }.onFailure { error ->
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            globalError = error.message ?: "Credenciales inválidas."
+                        )
+                    }
+                }
+
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        globalError = e.message ?: "Error inesperado."
+                    )
+                }
+            }
         }
     }
 
-    fun onLoginClicked() {
-        val isCorrectUser =
-            _uiState.value.email == "test@test.com" && _uiState.value.password == "12345678"
+    fun clearGlobalError() {
+        _uiState.update { it.copy(globalError = null) }
+    }
 
-        _uiState.update {
-            it.copy(
-                isLoggedIn = isCorrectUser,
-                emailError = if (!isCorrectUser) "Credenciales inválidas" else null,
-                passwordError = if (!isCorrectUser) "Credenciales inválidas" else null
-            )
-        }
+    private fun isEmailValid(email: String): Boolean {
+        val emailRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})$".toRegex()
+        return emailRegex.matches(email)
     }
 }

@@ -12,31 +12,24 @@ import com.example.peya_ecommerce_app.presentation.components.ProductCard
 import com.example.peya_ecommerce_app.presentation.components.SearchFilterBar
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.*
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.peya_ecommerce_app.presentation.cart.CartViewModel
 
 
 @Composable
 fun ProductListScreen(
     navController: NavController,
-    modifier: Modifier = Modifier,
-    viewModel: ProductListViewModel = viewModel(),
-    cartViewModel: CartViewModel = viewModel()
+    viewModel: ProductListViewModel = hiltViewModel()
 ) {
     val productList by viewModel.filteredProducts.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
-
     val category by viewModel.selectedCategory.collectAsState()
-    val categories = listOf("Todos", "Comida", "Bebida", "Postre")
 
-    val products by viewModel.filteredProducts.collectAsState()
-    val cartItems by cartViewModel.cartItems.collectAsState()
+    val categories = listOf("Todos", "Con Bebida", "Sin Bebida")
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                backgroundColor = MaterialTheme.colors.surface,
-                elevation = 4.dp
-            ) {
+            TopAppBar {
                 SearchFilterBar(
                     query = searchQuery,
                     onQueryChanged = { viewModel.onSearchQueryChanged(it) },
@@ -45,8 +38,7 @@ fun ProductListScreen(
                     availableCategories = categories
                 )
             }
-        },
-        modifier = modifier
+        }
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
@@ -55,15 +47,13 @@ fun ProductListScreen(
                 .padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(products) { product ->
-                val quantityInCart = cartItems.find { it.product == product }?.quantity ?: 0
+            items(productList) { product ->
                 ProductCard(
                     product = product,
-                    quantityInCart = quantityInCart,
-                    onAddToCart = { cartViewModel.addToCart(it) }
+                    quantityInCart = 0,
+                    onAddToCart = {}
                 )
             }
-
         }
     }
 }
