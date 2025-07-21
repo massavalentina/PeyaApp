@@ -2,7 +2,7 @@
 
 Aplicación de ecommerce desarrollada con Jetpack Compose, arquitectura MVVM, persistencia local con Room, y conectividad con API REST mediante Retrofit.
 
-## 🔶 Funcionalidades
+## - Funcionalidades
 
 - **Login**: Validación de email y contraseña.
 - **Registro**: Alta de usuarios con validaciones y confirmación de contraseña.
@@ -13,31 +13,31 @@ Aplicación de ecommerce desarrollada con Jetpack Compose, arquitectura MVVM, pe
 - **Persistencia del Carrito**: Guarda los productos incluso al cerrar la app (Room).
 - **Historial de Órdenes**: Muestra las compras realizadas y se actualiza correctamente.
 
-## 🔷 Conectividad y Servicios
+## - Conectividad y Servicios
 
 - Los datos se obtienen desde una **API REST** usando **Retrofit**.
 - `ApiService` configurado con todos los endpoints necesarios.
 - Uso de **loaders** durante las operaciones de red.
 - **Hilt** para inyección de dependencias (ViewModels, repositorios, servicios).
 
-## 🟢 Persistencia y Sincronización
+## - Persistencia y Sincronización
 
 - **Room**: El carrito y las órdenes se almacenan localmente.
 - La base de datos incluye **versionado y migraciones** en caso de cambios.
 
-## 🟠 Arquitectura y Testing
+## - Arquitectura y Testing
 
 - Implementación completa del patrón **MVVM**.
 - Organización en capas: `UI`, `ViewModel`, `data`, `domain`.
 - Gestión de estado **reactivo y asincrónico** en los ViewModels.
 - Pruebas unitarias en ViewModels y repositorios con **mocks**.
 
-## 🟣 Interfaz de Usuario
+## - Interfaz de Usuario
 
 - Toda la UI está desarrollada con **Jetpack Compose**.
 - Interfaz clara, consistente y sin errores visuales importantes.
 
-## ⚫ Calidad y Entrega
+## - Calidad y Entrega
 
 - Código limpio, sin **logs de depuración** ni **valores hardcodeados**.
 - Navegación funcional entre pantallas.
