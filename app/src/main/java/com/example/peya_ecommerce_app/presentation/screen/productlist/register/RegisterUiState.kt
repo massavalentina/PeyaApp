@@ -1,4 +1,4 @@
-package com.example.peya_ecommerce_app.presentation.register
+package com.example.peya_ecommerce_app.presentation.screen.productlist.register
 
 data class RegisterUiState(
     val fullName: String = "",

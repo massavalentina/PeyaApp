@@ -1,4 +1,4 @@
-package com.example.peya_ecommerce_app.presentation.login
+package com.example.peya_ecommerce_app.presentation.screen.productlist.login
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -9,8 +9,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.peya_ecommerce_app.navigation.Screen
+import com.example.peya_ecommerce_app.presentation.navigation.Screen
 
 @Composable
 fun LoginScreen(navController: NavController,

@@ -1,4 +1,4 @@
-package com.example.peya_ecommerce_app.presentation.login
+package com.example.peya_ecommerce_app.presentation.screen.productlist.login
 
 data class LoginUiState(
     val email: String = "",

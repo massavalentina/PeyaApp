@@ -12,8 +12,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.peya_ecommerce_app.navigation.Screen
-import com.example.peya_ecommerce_app.presentation.user.UserViewModel
+import com.example.peya_ecommerce_app.presentation.navigation.Screen
+import com.example.peya_ecommerce_app.presentation.screen.productlist.user.UserViewModel
 import androidx.compose.runtime.getValue
 
 @Composable

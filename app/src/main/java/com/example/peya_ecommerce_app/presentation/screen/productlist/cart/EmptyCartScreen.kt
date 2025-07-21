@@ -1,4 +1,4 @@
-package com.example.peya_ecommerce_app.presentation.cart
+package com.example.peya_ecommerce_app.presentation.screen.productlist.cart
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*

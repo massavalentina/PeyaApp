@@ -1,13 +1,13 @@
-package com.example.peya_ecommerce_app.navigation
+package com.example.peya_ecommerce_app.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.peya_ecommerce_app.presentation.cart.CartScreen
-import com.example.peya_ecommerce_app.presentation.login.LoginScreen
-import com.example.peya_ecommerce_app.presentation.productlist.ProductListScreen
-import com.example.peya_ecommerce_app.presentation.register.RegisterScreen
+import com.example.peya_ecommerce_app.presentation.screen.productlist.cart.CartScreen
+import com.example.peya_ecommerce_app.presentation.screen.productlist.login.LoginScreen
+import com.example.peya_ecommerce_app.presentation.screen.productlist.ProductListScreen
+import com.example.peya_ecommerce_app.presentation.screen.productlist.register.RegisterScreen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
@@ -15,9 +15,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.peya_ecommerce_app.presentation.components.BottomNavBar
 import androidx.compose.material3.*
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.peya_ecommerce_app.presentation.register.EmailVerifyScreen
-import com.example.peya_ecommerce_app.presentation.user.UserProfileScreen
-import com.example.peya_ecommerce_app.presentation.user.UserViewModel
+import com.example.peya_ecommerce_app.presentation.screen.productlist.register.EmailVerifyScreen
+import com.example.peya_ecommerce_app.presentation.screen.productlist.user.UserProfileScreen
+import com.example.peya_ecommerce_app.presentation.screen.productlist.user.UserViewModel
 
 sealed class Screen(val route: String) {
     object Login : Screen("login")

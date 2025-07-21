@@ -1,4 +1,4 @@
-package com.example.peya_ecommerce_app.presentation.register
+package com.example.peya_ecommerce_app.presentation.screen.productlist.register
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

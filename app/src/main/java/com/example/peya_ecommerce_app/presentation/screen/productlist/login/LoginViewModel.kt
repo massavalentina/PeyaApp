@@ -1,4 +1,4 @@
-package com.example.peya_ecommerce_app.presentation.login
+package com.example.peya_ecommerce_app.presentation.screen.productlist.login
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import com.example.peya_ecommerce_app.data.local.UserPreferences
 import com.example.peya_ecommerce_app.data.repository.UserRepository
 import com.example.peya_ecommerce_app.domain.utils.HashUtils
-import com.example.peya_ecommerce_app.navigation.Screen
+import com.example.peya_ecommerce_app.presentation.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

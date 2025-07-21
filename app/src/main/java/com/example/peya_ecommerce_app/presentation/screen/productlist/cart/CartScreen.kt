@@ -1,4 +1,4 @@
-package com.example.peya_ecommerce_app.presentation.cart
+package com.example.peya_ecommerce_app.presentation.screen.productlist.cart
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
@@ -6,13 +6,11 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.peya_ecommerce_app.model.CartItem
 import com.example.peya_ecommerce_app.model.Product
@@ -95,7 +93,7 @@ fun CartItemRow(
             Text("Subtotal: $${"%.2f".format(cartItem.product.precio * cartItem.quantity)}")
         }
 
-        Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = { onDecrement(cartItem.product) }) {
                 Icon(Icons.Default.Remove, contentDescription = "Menos")
             }

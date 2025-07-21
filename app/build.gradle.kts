@@ -99,4 +99,17 @@
 
             // DataStore
             implementation("androidx.datastore:datastore-preferences:1.1.0-alpha04")
+
+            testImplementation(libs.junit)
+            androidTestImplementation(libs.androidx.junit)
+            androidTestImplementation(libs.androidx.espresso.core)
+            androidTestImplementation(platform(libs.androidx.compose.bom))
+            androidTestImplementation(libs.androidx.ui.test.junit4)
+            debugImplementation(libs.androidx.ui.tooling)
+            debugImplementation(libs.androidx.ui.test.manifest)
+
+            // Unit Test
+            testImplementation("io.mockk:mockk:1.13.5")
+            testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+            testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.0")
         }

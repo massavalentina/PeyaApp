@@ -1,4 +1,4 @@
-package com.example.peya_ecommerce_app.presentation.user
+package com.example.peya_ecommerce_app.presentation.screen.productlist.user
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.peya_ecommerce_app.navigation.Screen
+import com.example.peya_ecommerce_app.presentation.navigation.Screen
 
 @Composable
 fun UserProfileScreen(navController: NavController) {

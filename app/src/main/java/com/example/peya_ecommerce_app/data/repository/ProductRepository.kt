@@ -2,8 +2,10 @@ package com.example.peya_ecommerce_app.data.repository
 
 import com.example.peya_ecommerce_app.data.remote.ProductService
 import com.example.peya_ecommerce_app.model.Product
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 class ProductRepository @Inject constructor(
     private val productService: ProductService
 ) {

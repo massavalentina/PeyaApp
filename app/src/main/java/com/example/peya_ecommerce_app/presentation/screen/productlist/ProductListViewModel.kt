@@ -1,4 +1,4 @@
-package com.example.peya_ecommerce_app.presentation.productlist
+package com.example.peya_ecommerce_app.presentation.screen.productlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +23,6 @@ class ProductListViewModel @Inject constructor(
     private val _selectedCategory = MutableStateFlow("Todos")
     val selectedCategory: StateFlow<String> = _selectedCategory
 
-    // Productos filtrados según el texto de búsqueda y la categoría seleccionada
     val filteredProducts: StateFlow<List<Product>> = combine(
         _allProducts,
         _searchQuery,
@@ -33,10 +32,10 @@ class ProductListViewModel @Inject constructor(
             .filter { it.nombre.contains(query, ignoreCase = true) }
             .filter {
                 when (category) {
-                    "Todos" -> true                               // Mostrar todos los productos
-                    "Con Bebida" -> it.hasDrink                  // Solo productos con bebida
-                    "Sin Bebida" -> !it.hasDrink                 // Solo productos sin bebida
-                    else -> true                                 // Default
+                    "Todos" -> true
+                    "Con Bebida" -> it.hasDrink
+                    "Sin Bebida" -> !it.hasDrink
+                    else -> true
                 }
             }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())

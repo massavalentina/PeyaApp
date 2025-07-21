@@ -7,12 +7,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.peya_ecommerce_app.ui.theme.PeyaecommerceappTheme
+import com.example.peya_ecommerce_app.presentation.theme.PeyaecommerceappTheme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.navigation.compose.rememberNavController
-import com.example.peya_ecommerce_app.navigation.AppNavGraph
+import com.example.peya_ecommerce_app.presentation.navigation.AppNavGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

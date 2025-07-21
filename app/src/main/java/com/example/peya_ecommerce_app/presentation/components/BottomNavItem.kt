@@ -3,7 +3,7 @@ package com.example.peya_ecommerce_app.presentation.components
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.example.peya_ecommerce_app.navigation.Screen
+import com.example.peya_ecommerce_app.presentation.navigation.Screen
 
 data class BottomNavItem(
     val route: String,

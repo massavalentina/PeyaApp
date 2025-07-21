@@ -1,4 +1,4 @@
-package com.example.peya_ecommerce_app.presentation.productlist
+package com.example.peya_ecommerce_app.presentation.screen.productlist
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,7 +14,7 @@ import com.example.peya_ecommerce_app.presentation.components.ProductCard
 import com.example.peya_ecommerce_app.presentation.components.SearchFilterBar
 import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.peya_ecommerce_app.presentation.cart.CartViewModel
+import com.example.peya_ecommerce_app.presentation.screen.productlist.cart.CartViewModel
 
 
 @Composable
