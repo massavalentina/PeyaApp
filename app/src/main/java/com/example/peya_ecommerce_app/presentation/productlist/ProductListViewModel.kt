@@ -23,6 +23,7 @@ class ProductListViewModel @Inject constructor(
     private val _selectedCategory = MutableStateFlow("Todos")
     val selectedCategory: StateFlow<String> = _selectedCategory
 
+    // Productos filtrados según el texto de búsqueda y la categoría seleccionada
     val filteredProducts: StateFlow<List<Product>> = combine(
         _allProducts,
         _searchQuery,
@@ -32,10 +33,10 @@ class ProductListViewModel @Inject constructor(
             .filter { it.nombre.contains(query, ignoreCase = true) }
             .filter {
                 when (category) {
-                    "Todos" -> true
-                    "Con Bebida" -> it.hasDrink
-                    "Sin Bebida" -> !it.hasDrink
-                    else -> true
+                    "Todos" -> true                               // Mostrar todos los productos
+                    "Con Bebida" -> it.hasDrink                  // Solo productos con bebida
+                    "Sin Bebida" -> !it.hasDrink                 // Solo productos sin bebida
+                    else -> true                                 // Default
                 }
             }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
@@ -47,21 +48,15 @@ class ProductListViewModel @Inject constructor(
     fun loadProducts() {
         viewModelScope.launch {
             try {
-                val products = productRepository.getProducts()
-                _allProducts.value = products
+                _allProducts.value = productRepository.getProducts()
             } catch (e: Exception) {
-                if (e is java.net.SocketTimeoutException) {
-                    println("Error de Timeout: ${e.message}")
-                } else {
-                    println("Error: ${e.message}")
-                }
                 _allProducts.value = emptyList()
+                e.printStackTrace()
             }
         }
     }
 
-
-        fun onSearchQueryChanged(query: String) {
+    fun onSearchQueryChanged(query: String) {
         _searchQuery.value = query
     }
 

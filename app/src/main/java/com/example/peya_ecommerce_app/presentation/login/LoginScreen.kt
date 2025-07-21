@@ -19,19 +19,16 @@ fun LoginScreen(navController: NavController,
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    // Contenedor principal
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(24.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        // Título de Login
         Text("Login", style = MaterialTheme.typography.headlineMedium)
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Campo: Email
         OutlinedTextField(
             value = uiState.email,
             onValueChange = { viewModel.onEmailChanged(it) },
@@ -45,7 +42,6 @@ fun LoginScreen(navController: NavController,
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Campo: Contraseña
         OutlinedTextField(
             value = uiState.password,
             onValueChange = { viewModel.onPasswordChanged(it) },
@@ -60,13 +56,12 @@ fun LoginScreen(navController: NavController,
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Botón o Indicador de carga dependiendo de isLoading
         if (uiState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
         } else {
             Button(
                 onClick = {
-                    viewModel.onLoginClicked(navController) // Manejamos la lógica desde el ViewModel
+                    viewModel.onLoginClicked(navController)
                 },
                 enabled = uiState.isLoginEnabled,
                 modifier = Modifier.fillMaxWidth()
@@ -74,20 +69,18 @@ fun LoginScreen(navController: NavController,
                 Text("Iniciar sesión")
             }
 
-            // Botón para ir al registro
             TextButton(onClick = { navController.navigate(Screen.Register.route) }) {
                 Text("¿No tenés cuenta? Registrate")
             }
         }
     }
 
-    // Mostrar Snackbar en caso de error
     if (uiState.globalError != null) {
         val snackbarHostState = remember { SnackbarHostState() }
 
         LaunchedEffect(uiState.globalError) {
             snackbarHostState.showSnackbar(uiState.globalError ?: "Error desconocido")
-            viewModel.clearGlobalError() // Limpiar el estado del error después de mostrar el Snackbar
+            viewModel.clearGlobalError()
         }
 
         SnackbarHost(
@@ -96,9 +89,7 @@ fun LoginScreen(navController: NavController,
         )
     }
 
-    // Navegar a la pantalla de productos si el login fue exitoso
     if (uiState.isLoggedIn) {
-        // Si el estado indica que el usuario está logueado, redirigimos
         LaunchedEffect(Unit) {
             navController.navigate(Screen.ProductList.route) {
                 popUpTo(Screen.Login.route) { inclusive = true }

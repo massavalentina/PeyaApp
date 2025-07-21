@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -19,61 +20,92 @@ import com.example.peya_ecommerce_app.model.Product
 @Composable
 fun CartScreen(
     navController: NavController,
-    cartViewModel: CartViewModel = viewModel(),
-    modifier: Modifier = Modifier
+    cartViewModel: CartViewModel = hiltViewModel()
 ) {
     val cartItems by cartViewModel.cartItems.collectAsState()
     val total by cartViewModel.totalPrice.collectAsState()
 
     if (cartItems.isEmpty()) {
-        EmptyCartScreen(navController)
+        Text(
+            text = "Tu carrito está vacío",
+            style = MaterialTheme.typography.h6,
+            modifier = Modifier.fillMaxSize().wrapContentSize()
+        )
         return
     }
 
-    Column(modifier = modifier.padding(16.dp)) {
-        Text("Carrito", style = MaterialTheme.typography.h6)
-        Spacer(modifier = Modifier.height(8.dp))
-
+    Column(modifier = Modifier.padding(16.dp)) {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.weight(1f)
         ) {
             items(cartItems) { item ->
-                CartItemRow(item, cartViewModel)
+                CartItemRow(
+                    cartItem = item,
+                    onIncrement = { cartViewModel.increment(it) },     // Llamar a increment() en el ViewModel
+                    onDecrement = { cartViewModel.decrement(it) },     // Llamar a decrement() en el ViewModel
+                    onRemove = { cartViewModel.removeItem(it) }        // Llamar a removeItem() en el ViewModel
+                )
             }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
         Text("Total: $${"%.2f".format(total)}", style = MaterialTheme.typography.h6)
+
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(
+            onClick = {
+                cartViewModel.confirmOrder(
+                    onSuccess = {
+                        navController.navigate("success") // Navegar a pantalla de éxito
+                    },
+                    onError = { error ->
+                        if (error == "Usuario no logueado") {
+                            navController.navigate("login") // Ir a login si no hay sesión
+                        } else {
+                            println("Error: $error") // Manejar otros errores
+                        }
+                    }
+                )
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Confirmar compra")
+        }
     }
 }
 
 @Composable
-fun CartItemRow(item: CartItem, cartViewModel: CartViewModel) {
+fun CartItemRow(
+    cartItem: CartItem,
+    onIncrement: (Product) -> Unit,
+    onDecrement: (Product) -> Unit,
+    onRemove: (Product) -> Unit
+) {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         AsyncImage(
-            model = item.product.imagenUrl,
-            contentDescription = item.product.nombre,
+            model = cartItem.product.imagenUrl,
+            contentDescription = cartItem.product.nombre,
             modifier = Modifier.size(80.dp)
         )
 
         Column(modifier = Modifier.weight(1f).padding(start = 8.dp)) {
-            Text(item.product.nombre)
-            Text("Precio: $${item.product.precio}")
-            Text("Subtotal: $${"%.2f".format(item.product.precio * item.quantity)}")
+            Text(cartItem.product.nombre)
+            Text("Precio: $${cartItem.product.precio}")
+            Text("Subtotal: $${"%.2f".format(cartItem.product.precio * cartItem.quantity)}")
         }
 
         Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-            IconButton(onClick = { cartViewModel.decrement(item.product) }) {
+            IconButton(onClick = { onDecrement(cartItem.product) }) {
                 Icon(Icons.Default.Remove, contentDescription = "Menos")
             }
-            Text("${item.quantity}")
-            IconButton(onClick = { cartViewModel.increment(item.product) }) {
+            Text("${cartItem.quantity}")
+            IconButton(onClick = { onIncrement(cartItem.product) }) {
                 Icon(Icons.Default.Add, contentDescription = "Más")
             }
         }
 
-        IconButton(onClick = { cartViewModel.removeItem(item.product) }) {
+        IconButton(onClick = { onRemove(cartItem.product) }) {
             Icon(Icons.Default.Delete, contentDescription = "Eliminar")
         }
     }

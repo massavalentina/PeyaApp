@@ -9,16 +9,14 @@ class ProductRepository @Inject constructor(
 ) {
 
     suspend fun getProducts(): List<Product> {
-        // Llama al servicio y convierte los DTOs al modelo interno Product
         return productService.getProducts().map { dto ->
             Product(
-                id = dto._id,                     // Mapeo desde _id
-                nombre = dto.name,                // Mapeo desde name
-                precio = dto.price,               // Mapeo directo
-                imagenUrl = dto.imageUrl,         // Mapeo directo
-                descripcion = dto.description,     // Mapeo directo
+                id = dto._id,
+                nombre = dto.name,
+                precio = dto.price,
+                imagenUrl = dto.imageUrl,
+                descripcion = dto.description,
                 hasDrink = dto.hasDrink
-                // Puedes agregar más manipulación aquí según tus necesidades
             )
         }
     }

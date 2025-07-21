@@ -1,9 +1,15 @@
 package com.example.peya_ecommerce.di
 
 import android.content.Context
+import androidx.room.Room
+import com.example.peya_ecommerce_app.data.local.AppDatabase
+import com.example.peya_ecommerce_app.data.local.Cart.CartDao
 import com.example.peya_ecommerce_app.data.local.UserPreferences
 import com.example.peya_ecommerce_app.data.remote.AuthService
+import com.example.peya_ecommerce_app.data.remote.OrderService
 import com.example.peya_ecommerce_app.data.remote.ProductService
+import com.example.peya_ecommerce_app.data.repository.CartRepository
+import com.example.peya_ecommerce_app.data.repository.OrderRepository
 import com.example.peya_ecommerce_app.data.repository.ProductRepository
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -82,5 +88,39 @@ object AppModule {
         productService: ProductService
     ): ProductRepository {
         return ProductRepository(productService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOrderRepository(orderService: OrderService): OrderRepository {
+        return OrderRepository(orderService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOrderService(retrofit: Retrofit): OrderService {
+        return retrofit.create(OrderService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "app_database"
+        ).fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Provides
+    fun provideCartDao(db: AppDatabase): CartDao {
+        return db.cartDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCartRepository(cartDao: CartDao): CartRepository {
+        return CartRepository(cartDao)
     }
 }

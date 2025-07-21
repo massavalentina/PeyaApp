@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.peya_ecommerce_app.data.local.UserPreferences
 import com.example.peya_ecommerce_app.data.repository.UserRepository
+import com.example.peya_ecommerce_app.domain.utils.HashUtils
 import com.example.peya_ecommerce_app.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,11 +46,13 @@ class LoginViewModel @Inject constructor(
             return
         }
 
+        val hashedPassword = HashUtils.hashPassword(password)
+
         _uiState.update { it.copy(isLoading = true) }
 
         viewModelScope.launch {
             try {
-                val result = userRepository.authenticateUser(email, password)
+                val result = userRepository.authenticateUser(email, hashedPassword)
 
                 result.onSuccess { authResponse ->
                     viewModelScope.launch {
