@@ -36,14 +36,12 @@ class UserPreferences(private val context: Context) {
             preferences[USER_EMAIL_KEY] = email
             preferences[USER_ID_KEY] = userId
             preferences[IS_LOGGED_IN_KEY] = true
-            Log.d("UserPreferences", "Usuario guardado: Email: $email, ID: $userId, isLoggedIn: true")
         }
     }
 
     suspend fun clearUser() {
         context.userDataStore.edit { preferences ->
             preferences.clear()
-            Log.d("UserPreferences", "Datos del usuario eliminados")
         }
     }
 }

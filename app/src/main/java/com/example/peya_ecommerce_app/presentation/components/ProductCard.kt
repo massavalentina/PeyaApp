@@ -17,14 +17,14 @@ fun ProductCard(
     onAddToCart: (Product) -> Unit,
     onRemoveFromCart: (Product) -> Unit
 ) {
-    ElevatedCard( // Utilizamos ElevatedCard de Material 3
+    ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
         colors = CardDefaults.elevatedCardColors()
     ) {
         Column(
-            modifier = Modifier.padding(16.dp) // Padding interno de la tarjeta
+            modifier = Modifier.padding(16.dp)
         ) {
             Row {
                 AsyncImage(

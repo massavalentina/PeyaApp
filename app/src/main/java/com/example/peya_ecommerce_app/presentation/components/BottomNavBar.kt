@@ -19,21 +19,19 @@ import androidx.compose.runtime.getValue
 @Composable
 fun BottomNavBar(
     navController: NavController,
-    userViewModel: UserViewModel = hiltViewModel() // Detectar si el usuario está logueado
+    userViewModel: UserViewModel = hiltViewModel()
 ) {
     val isLoggedIn by userViewModel.isLoggedIn.collectAsState(initial = false)
 
-    Log.d("BottomBarState", "isLoggedIn: $isLoggedIn")
-    // Lista dinámica de ítems del BottomNav
     val bottomNavItems = if (isLoggedIn) {
         listOf(
-            BottomNavItem(Screen.UserProfile.route, "Cuenta", Icons.Default.Person), // Sección de Cuenta
+            BottomNavItem(Screen.UserProfile.route, "Cuenta", Icons.Default.Person),
             BottomNavItem(Screen.ProductList.route, "Productos", Icons.Default.List),
             BottomNavItem(Screen.Cart.route, "Carrito", Icons.Default.ShoppingCart)
         )
     } else {
         listOf(
-            BottomNavItem(Screen.Login.route, "Login", Icons.Default.Person), // Opción de Login
+            BottomNavItem(Screen.Login.route, "Login", Icons.Default.Person),
             BottomNavItem(Screen.Register.route, "Registrarse", Icons.Default.PersonAdd),
             BottomNavItem(Screen.ProductList.route, "Productos", Icons.Default.List),
             BottomNavItem(Screen.Cart.route, "Carrito", Icons.Default.ShoppingCart)

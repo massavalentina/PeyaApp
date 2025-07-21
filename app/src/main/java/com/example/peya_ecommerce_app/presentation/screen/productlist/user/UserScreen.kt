@@ -40,5 +40,11 @@ fun UserProfileScreen(navController: NavController) {
         ) {
             Text("Cerrar Sesión")
         }
+        Button(
+            onClick = { navController.navigate(Screen.UserOrders.route) },
+            modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+        ) {
+            Text("Ver Pedidos del Usuario")
+        }
     }
 }

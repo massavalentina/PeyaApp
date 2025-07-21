@@ -1,29 +1,45 @@
-## Peya Ecommerce App 🛒
+# Peya Ecommerce App 🛒
 
-Dado que enfrenté problemas de incompatibilidad de dependencias relacionadas con *Room* y *Hilt*, presento el bloque estable de mi aplicación, que hasta el momento incluye las siguientes funcionalidades principales:
+Aplicación de ecommerce desarrollada con Jetpack Compose, arquitectura MVVM, persistencia local con Room, y conectividad con API REST mediante Retrofit.
 
-- *Login*: Autenticación básica de usuario.  
-- *Registro*: Registro de nuevos usuarios.  
-- *Listado de Productos*: Visualización dinámica de productos disponibles.
-- *Filtros para vista de Productos*: Visualización dinámica de productos filtrados por categoria (Bebida, Comida, Postre).  
-- *Carrito de Compras (sin persistencia con Room)*: Funcionalidad completa, aunque sin almacenamiento persistente.
+## 🔶 Funcionalidades
 
----
+- **Login**: Validación de email y contraseña.
+- **Registro**: Alta de usuarios con validaciones y confirmación de contraseña.
+- **Listado de Productos**: Muestra dinámica de productos disponibles.
+- **Filtros para vista de Productos**: Filtrado por categoría (Bebida, Comida, Postre).
+- **Búsqueda de Productos**: Búsqueda dinámica en la lista.
+- **Carrito de Compras**: Agregar, editar cantidad, eliminar productos y calcular total.
+- **Persistencia del Carrito**: Guarda los productos incluso al cerrar la app (Room).
+- **Historial de Órdenes**: Muestra las compras realizadas y se actualiza correctamente.
 
-## 📸 Capturas de Pantalla
+## 🔷 Conectividad y Servicios
 
-![Login Screenshot](app/sampledatapreview/imgskt/1login.jpeg)
-![Login Screenshot_Twp](app/sampledatapreview/imgskt/2loginerrors.jpeg)
-![Register Screenshot](app/sampledatapreview/imgskt/3register.jpeg)
-![Register Screenshot_Two](app/sampledatapreview/imgskt/4registererrors.jpeg)
-![Products Screenshot](app/sampledatapreview/imgskt/5products.jpeg)
-![Products Screenshot_Two](app/sampledatapreview/imgskt/6searchfilter.jpeg)
-![Products Screenshot_Three](app/sampledatapreview/imgskt/7categoryfilter.jpeg)
-![Cart Screenshot](app/sampledatapreview/imgskt/8cart.jpeg)
+- Los datos se obtienen desde una **API REST** usando **Retrofit**.
+- `ApiService` configurado con todos los endpoints necesarios.
+- Uso de **loaders** durante las operaciones de red.
+- **Hilt** para inyección de dependencias (ViewModels, repositorios, servicios).
 
----
+## 🟢 Persistencia y Sincronización
 
-## 📝 Notas Finales
-- La aplicación se encuentra en *desarrollo activo*. Debido a mi ausencia en el periodo disponible para la entrega final de este trabajo integrador, *todo feedback que me ayude a mejorar mi proyecto más allá de este curso será muy bien recibido*.
+- **Room**: El carrito y las órdenes se almacenan localmente.
+- La base de datos incluye **versionado y migraciones** en caso de cambios.
 
----
+## 🟠 Arquitectura y Testing
+
+- Implementación completa del patrón **MVVM**.
+- Organización en capas: `UI`, `ViewModel`, `data`, `domain`.
+- Gestión de estado **reactivo y asincrónico** en los ViewModels.
+- Pruebas unitarias en ViewModels y repositorios con **mocks**.
+
+## 🟣 Interfaz de Usuario
+
+- Toda la UI está desarrollada con **Jetpack Compose**.
+- Interfaz clara, consistente y sin errores visuales importantes.
+
+## ⚫ Calidad y Entrega
+
+- Código limpio, sin **logs de depuración** ni **valores hardcodeados**.
+- Navegación funcional entre pantallas.
+- Repositorio actualizado y bien organizado con **commits claros**.
+

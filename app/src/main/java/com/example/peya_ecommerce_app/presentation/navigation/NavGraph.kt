@@ -15,6 +15,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.peya_ecommerce_app.presentation.components.BottomNavBar
 import androidx.compose.material3.*
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.peya_ecommerce_app.presentation.screen.productlist.orders.UserOrdersScreen
 import com.example.peya_ecommerce_app.presentation.screen.productlist.register.EmailVerifyScreen
 import com.example.peya_ecommerce_app.presentation.screen.productlist.user.UserProfileScreen
 import com.example.peya_ecommerce_app.presentation.screen.productlist.user.UserViewModel
@@ -24,8 +25,9 @@ sealed class Screen(val route: String) {
     object Register : Screen("register")
     object ProductList : Screen("products")
     object Cart : Screen("cart")
-    object UserProfile : Screen("user_profile") // Nueva ruta para la sección de Cuenta
+    object UserProfile : Screen("user_profile")
     object EmailVerify : Screen("email_verify")
+    object UserOrders : Screen("user_orders")
 }
 
 @Composable
@@ -40,10 +42,11 @@ fun AppNavGraph(navController: NavHostController) {
                     Screen.Register.route,
                     Screen.ProductList.route,
                     Screen.Cart.route,
-                    Screen.UserProfile.route
+                    Screen.UserProfile.route,
+                    Screen.UserOrders.route
                 )
             ) {
-                BottomNavBar(navController = navController, userViewModel = userViewModel) // Pasamos el UserViewModel
+                BottomNavBar(navController = navController, userViewModel = userViewModel)
             }
         }
     ) { padding ->
@@ -58,6 +61,8 @@ fun AppNavGraph(navController: NavHostController) {
             composable(Screen.Cart.route) { CartScreen(navController) }
             composable(Screen.EmailVerify.route) { EmailVerifyScreen(navController)}
             composable(Screen.UserProfile.route) { UserProfileScreen(navController = navController) }
+            composable(Screen.UserOrders.route) { UserOrdersScreen(navController = navController)}
+
         }
     }
 }

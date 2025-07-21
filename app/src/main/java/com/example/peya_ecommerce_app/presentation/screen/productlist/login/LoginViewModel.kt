@@ -60,8 +60,6 @@ class LoginViewModel @Inject constructor(
                             email = authResponse.email,
                             userId = authResponse.userId
                         )
-                        Log.d("LoginFlow", "Usuario guardado en DataStore:")
-                        Log.d("LoginFlow", "Email: ${authResponse.email}, ID: ${authResponse.userId}")
                     }
 
                     _uiState.update {
@@ -71,7 +69,6 @@ class LoginViewModel @Inject constructor(
                             globalError = null
                         )
                     }
-                    Log.d("LoginFlow", "Estado isLoggedIn cambiado a true")
                     navController.navigate(Screen.ProductList.route) {
                         popUpTo(Screen.Login.route) { inclusive = true }
                     }

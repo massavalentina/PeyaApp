@@ -40,9 +40,9 @@ fun CartScreen(
             items(cartItems) { item ->
                 CartItemRow(
                     cartItem = item,
-                    onIncrement = { cartViewModel.increment(it) },     // Llamar a increment() en el ViewModel
-                    onDecrement = { cartViewModel.decrement(it) },     // Llamar a decrement() en el ViewModel
-                    onRemove = { cartViewModel.removeItem(it) }        // Llamar a removeItem() en el ViewModel
+                    onIncrement = { cartViewModel.increment(it) },
+                    onDecrement = { cartViewModel.decrement(it) },
+                    onRemove = { cartViewModel.removeItem(it) }
                 )
             }
         }
@@ -55,13 +55,13 @@ fun CartScreen(
             onClick = {
                 cartViewModel.confirmOrder(
                     onSuccess = {
-                        navController.navigate("success") // Navegar a pantalla de éxito
+                        navController.navigate("success")
                     },
                     onError = { error ->
                         if (error == "Usuario no logueado") {
-                            navController.navigate("login") // Ir a login si no hay sesión
+                            navController.navigate("login")
                         } else {
-                            println("Error: $error") // Manejar otros errores
+                            println("Error: $error")
                         }
                     }
                 )

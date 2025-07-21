@@ -21,12 +21,12 @@ import com.example.peya_ecommerce_app.presentation.screen.productlist.cart.CartV
 fun ProductListScreen(
     navController: NavController,
     viewModel: ProductListViewModel = hiltViewModel(),
-    cartViewModel: CartViewModel = hiltViewModel() // Vinculación al carrito
+    cartViewModel: CartViewModel = hiltViewModel()
 ) {
     val productList by viewModel.filteredProducts.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
     val category by viewModel.selectedCategory.collectAsState()
-    val cartItems by cartViewModel.cartItems.collectAsState() // Estado del carrito
+    val cartItems by cartViewModel.cartItems.collectAsState()
 
     val categories = listOf("Todos", "Con Bebida", "Sin Bebida")
 
@@ -35,7 +35,6 @@ fun ProductListScreen(
             TopAppBar(
                 title = { Text("Lista de Productos") },
                 actions = {
-                    // Botón para ir al carrito
                     IconButton(onClick = { navController.navigate("cart") }) {
                         Icon(
                             imageVector = Icons.Default.ShoppingCart,
@@ -46,7 +45,6 @@ fun ProductListScreen(
         }
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
-            // Barra de búsqueda y filtros
             SearchFilterBar(
                 query = searchQuery,
                 onQueryChanged = { viewModel.onSearchQueryChanged(it) },
@@ -57,13 +55,11 @@ fun ProductListScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Lista de productos con lógica del carrito integrada
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.padding(8.dp)
             ) {
                 items(productList) { product ->
-                    // Cantidad del producto en el carrito, si ya existe
                     val quantityInCart = cartItems.find { it.product.id == product.id }?.quantity ?: 0
 
                     ProductCard(

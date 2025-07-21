@@ -8,6 +8,10 @@ class OrderRepository @Inject constructor(
     private val orderService: OrderService
 ) {
 
+    suspend fun getOrders(): List<Order> {
+        return orderService.getOrders()
+    }
+
     suspend fun createOrder(order: Order): Order {
         return orderService.createOrder(order)
     }

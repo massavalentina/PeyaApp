@@ -21,7 +21,6 @@ class UserViewModel @Inject constructor(
     fun logout(navController: NavController) {
         viewModelScope.launch {
             userPreferences.clearUser()
-            Log.d("LogoutFlow", "Datos del usuario eliminados de DataStore")
 
             navController.navigate(Screen.Login.route) {
                 popUpTo(Screen.ProductList.route) { inclusive = true }

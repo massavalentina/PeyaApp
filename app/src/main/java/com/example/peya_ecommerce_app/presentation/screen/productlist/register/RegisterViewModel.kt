@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val userRepository: UserRepository // Inyección automática del UserRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RegisterUiState())
@@ -60,24 +60,20 @@ class RegisterViewModel @Inject constructor(
     }
 
     fun onRegisterClicked() {
-        Log.d("RegisterFlow", "Registro iniciado")
 
         _uiState.update { it.copy(isLoading = true)}
 
         viewModelScope.launch {
             try {
                 val hashedPassword = HashUtils.hashPassword(_uiState.value.password)
-                Log.d("RegisterFlow", "Contraseña encriptada: $hashedPassword")
 
                 val result = userRepository.registerUser(
                     fullName = _uiState.value.fullName,
                     email = _uiState.value.email,
                     password = hashedPassword
                 )
-                Log.d("RegisterFlow", "Llamada al repositorio realizada")
 
                 result.onSuccess {
-                    Log.d("RegisterFlow", "Registro exitoso: ")
 
                     _uiState.update {
                         it.copy(
@@ -87,11 +83,9 @@ class RegisterViewModel @Inject constructor(
                         )
                     }
                 }.onFailure { error ->
-                    Log.d("RegisterFlow", "Error en el registro: ${error.localizedMessage}")
                     showError(error.message.toString())
                 }
             } catch (e: Exception) {
-                Log.d("RegisterFlow", "Excepción inesperada: ${e.localizedMessage}")
 
                 showError(e.message ?: "Error inesperado")
             }
@@ -103,7 +97,7 @@ class RegisterViewModel @Inject constructor(
             it.copy(
                 isLoading = false,
                 isRegistered = false,
-                globalError = errorMessage // Mostrar mensaje de error
+                globalError = errorMessage
             )
         }
     }

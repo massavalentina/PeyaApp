@@ -20,7 +20,6 @@ fun RegisterScreen(
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    // Scaffold para organizar la pantalla
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         modifier = modifier.fillMaxSize()
@@ -32,11 +31,9 @@ fun RegisterScreen(
                 .padding(24.dp),
             verticalArrangement = Arrangement.Center
         ) {
-            // Título
             Text("Registro", style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Campo: Nombre completo
             OutlinedTextField(
                 value = uiState.fullName,
                 onValueChange = { viewModel.onFullNameChanged(it) },
@@ -50,7 +47,6 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Campo: Email
             OutlinedTextField(
                 value = uiState.email,
                 onValueChange = { viewModel.onEmailChanged(it) },
@@ -64,7 +60,6 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Campo: Contraseña
             OutlinedTextField(
                 value = uiState.password,
                 onValueChange = { viewModel.onPasswordChanged(it) },
@@ -79,7 +74,6 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Campo: Confirmar contraseña
             OutlinedTextField(
                 value = uiState.confirmPassword,
                 onValueChange = { viewModel.onConfirmPasswordChanged(it) },
@@ -94,7 +88,6 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Botón para registrarse o indicación de carga
             if (uiState.isLoading) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
             } else {
@@ -109,10 +102,9 @@ fun RegisterScreen(
         }
     }
 
-    // Modal de éxito
     if (uiState.isRegistered) {
         AlertDialog(
-            onDismissRequest = {}, // Previene cerrar el diálogo tocando fuera
+            onDismissRequest = {},
             title = { Text("Registro exitoso") },
             text = { Text("Se envió un correo de validación. Por favor, revisa tu bandeja de entrada.") },
             confirmButton = {
@@ -126,7 +118,6 @@ fun RegisterScreen(
         )
     }
 
-    // Modal de error
     uiState.globalError?.let { errorMessage ->
         AlertDialog(
             onDismissRequest = { viewModel.clearGlobalError() },
